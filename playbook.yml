@@ -1,26 +1,5 @@
----
-- name: Install wartest
+- name: install wartest
   hosts: all
   become: yes
-  vars:
-    image: "my-docker-image"  # Define the image name here
   roles:
     - wartest
-  tasks:
-    - name: Ensure Docker is installed
-      package:
-        name: docker
-        state: present
-
-    - name: Pull the Docker image
-      docker_image:
-        name: "{{ image }}"
-        source: pull
-
-    - name: Run the Docker container
-      docker_container:
-        name: wartest-container
-        image: "{{ image }}"
-        state: started
-        ports:
-          - "8081:8080"
